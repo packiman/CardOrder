@@ -22,7 +22,6 @@ public class CardOrderTest {
 
     @BeforeAll
     static void setUpAll() {
-        //System.setProperty("webdriver.chrome.driver" , "./driver/win/chromedriver.exe");
         WebDriverManager.chromedriver().setup();
     }
 
@@ -32,7 +31,7 @@ public class CardOrderTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         driver = new ChromeDriver(options);
-         }
+    }
 
     @AfterEach
     void tearDown() {
@@ -44,16 +43,13 @@ public class CardOrderTest {
     void shouldTestV1() throws InterruptedException {
         driver.get("http://localhost:9999/");
         List<WebElement> inputs = driver.findElements(By.tagName("input"));
-        inputs.get(0).sendKeys("Петров Василий");
-        inputs.get(1).sendKeys("+79992225588");
-        //driver.findElement().sendKeys("Петров Василий");
-        //driver.findElement().sendKeys("+79882225588");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Петров-Сидоров Василий");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79992225588");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = driver.findElement(By.tagName("p")).getText().trim();
-        assertEquals(expected,actual);
-
+        String actual = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
+        assertEquals(expected, actual);
 
 
     }

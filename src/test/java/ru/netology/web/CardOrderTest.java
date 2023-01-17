@@ -40,9 +40,8 @@ public class CardOrderTest {
     }
 
     @Test
-    void shouldTestV1() throws InterruptedException {
+    void shouldTestV1() {
         driver.get("http://localhost:9999/");
-        List<WebElement> inputs = driver.findElements(By.tagName("input"));
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Петров-Сидоров Василий");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79992225588");
         driver.findElement(By.className("checkbox__box")).click();
